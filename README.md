@@ -23,7 +23,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.preprocessing import LabelEncoder
 from sklearn.naive_bayes import MultinomialNB
 
-# ----------------------preparo_todo------------------------------------------------------
+# ----------------------preparing-----------------------------------------
 import pandas as pd
 
 df=pd.read_csv(r"D:\Users\User\PycharmProjects\Hola_Mundo\boot python\Base_bot.csv",sep=';')
@@ -45,10 +45,10 @@ y = label_encoder.fit_transform(y)
 clasificador = MultinomialNB()
 clasificador.fit(X, y)
 
-# ----------------------------------fin_de_preparar------------------------------------
+# ----------------------------------end-of-preparing----------------------------
 
 
-#----------------------------------------COMIENZO DEL PROGRAMA--------------------------------------------------
+#----------------------------------Beggining of the program---------------------
 
 
 
