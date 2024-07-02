@@ -147,4 +147,4 @@ def main() -> None:
 if __name__ == "__main__":
     main()
 
-[Base_bot.csv](https://github.com/user-attachments/files/16065975/Base_bot.csv)
+
