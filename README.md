@@ -134,7 +134,7 @@ async def respuesta(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 def main() -> None:
 
     # Create the Application and pass it your bot's token.
-    application = Application.builder().token("2011743566:AAHVRnVdBq059q3nlK1adsr4yiODbOEXyXw").build()
+    application = Application.builder().token("TOKEN").build()
 
 
     # on non command i.e message - respuesta the message on Telegram
