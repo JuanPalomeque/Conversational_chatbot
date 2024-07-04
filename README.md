@@ -1,5 +1,7 @@
 # Conversational_chatbot
-Introduction to chatbot programming and machine learning technines 
+#Introduction to chatbot programming and machine learning technines 
+
+
 
 import logging
 
@@ -23,7 +25,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.preprocessing import LabelEncoder
 from sklearn.naive_bayes import MultinomialNB
 
-# ----------------------preparing-----------------------------------------
+# ----------------------preparing------------------------------------
 import pandas as pd
 
 df=pd.read_csv(r"D:\Users\User\PycharmProjects\Hola_Mundo\boot python\Base_bot.csv",sep=';')
@@ -45,22 +47,17 @@ y = label_encoder.fit_transform(y)
 clasificador = MultinomialNB()
 clasificador.fit(X, y)
 
-# ----------------------------------end-of-preparing----------------------------
-
-
 #----------------------------------Beggining of the program---------------------
 
 
-
-def clasification(respuesta):
+def clasification(respuesta_usuario):
     '''función para predecir la categoria de la pregunta usando AA'''
     # Predigo
-    new_X = vectorizador.transform([respuesta])  #respuesta debe ser por ej: ['hola']
+    new_X = vectorizador.transform([respuesta_usuario])   #respuesta del usuario debe ser por ej: ['hola']
     prediccion = clasificador.predict(new_X)
 
     return label_encoder.inverse_transform(prediccion)      #lo reconvierto a texto
 
-data = {'Que contas?':'Todo tranqui, vos?', }
 
 respuestas=[]
 respuesta=''
@@ -72,73 +69,48 @@ async def respuesta(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         clasificacion=clasification(update.message.text.lower())
         global contador
 
-        if clasificacion == 'saludo':
+        if clasificacion == etiqueta_1:
             user = update.effective_user
             # {user.mention_html()}!'
-            resp = ['Hola!', 'Buenas', 'Que contas?', 'Como anda la más linda?']
+            resp = [respuestas_etiqueta_1]
             respuesta = random.choice(resp)
-        elif clasificacion == 'despedida':
-            resp = ['chau', 'Chau linda!', 'Que triste que te vas...','Hablamos pronto']
+        elif clasificacion == etiqueta_2:
+            resp = [respuestas_etiqueta_2]
             respuesta = random.choice(resp)
-        elif clasificacion == 'risa':
-            resp = ['jaja', 'jajaja', '😂']
+        elif clasificacion == etiqueta_3:
+            resp = [respuestas_etiqueta_3]
             respuesta = random.choice(resp)
-        elif clasificacion == 'insulto':
-            resp = ['Vos seras', 'Que mala!', 'Pero callate !']
+        elif clasificacion == etiqueta_4:
+            resp = [respuestas_etiqueta_4]
             respuesta = random.choice(resp)
-        elif clasificacion == 'beso':
-            resp = ['Besos para vos linda', '😘', 'Te mando 2 besos']
+        elif clasificacion == etiqueta_5:
+            resp = [respuestas_etiqueta_5]
             respuesta = random.choice(resp)
-        elif clasificacion == 'lindo':
-            resp = ['Vos sos linda!', 'Sos terrible bombón', 'Sabias que sos linda?']
+        elif clasificacion == etiqueta_6:
+            resp = [respuestas_etiqueta_6]
             respuesta = random.choice(resp)
-        elif clasificacion == 'cordial':
-            resp = ['Todo bien', 'todo tranqui', 'Acá andamos', 'mal porque no te veo...']
+        elif clasificacion == etiqueta_7:
+            resp = [respuestas_etiqueta_7]
             respuesta = random.choice(resp)
         else:
              contador += 1
              if contador == 5:
                 contador=0
-                respuesta='Sabias que estas mas buena que un chocolate Cadbury?'
+                respuesta='respuesta extra'
              else:
-                 resp = ['que bueno', 'dale', 'Lo voy a pensar', 'y.. puede ser', 'si!', 'no se', '\U0001F642',
-                         'sos re linda!','salimos?','y.. si']
+                 resp = ['respuestas extras']
                  respuesta = random.choice(resp)
 
         await update.message.reply_text(respuesta)
         print(f'Bot: {respuesta}')
 
-       # await update.message.reply_text('HOLA')
-       # user = update.effective_user
-       # print(user.mention_html())
-       # user_id = update.message.from_user.id
-       # print(user_id)
-
-       #YO: 1546945204
-       #YO: <a href="tg://user?id=1546945204">Juan</a>
-
-    #elif not update.message.text.lower().find('jaja'):
-     #   await update.message.reply_text('jaja')
-
-    #if 'gracias' in update.message.text.lower():
-     #   await update.message.reply_text('de nada !')
-
-    #elif 'Chau' in update.message.text or 'Adios' in update.message.text:
-     #   await update.message.reply_text('Chau linda!')
-
-    #else:
-     #   await update.message.reply_text('Sos re linda! \U0001F642')
-
-
-
-def main() -> None:
-
+       
     # Create the Application and pass it your bot's token.
     application = Application.builder().token("TOKEN").build()
 
 
     # on non command i.e message - respuesta the message on Telegram
-    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, respuesta))
+    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, respuesta_usuario))
 
     # Run the bot until the user presses Ctrl-C
     application.run_polling(allowed_updates=Update.ALL_TYPES)
