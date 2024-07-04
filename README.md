@@ -20,6 +20,7 @@ logging.getLogger("httpx").setLevel(logging.WARNING)
 logger = logging.getLogger(__name__)
 
 
+## Import libraries
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.preprocessing import LabelEncoder
 from sklearn.naive_bayes import MultinomialNB
@@ -51,6 +52,7 @@ clasificador.fit(X, y)
 
 def clasification(respuesta_usuario):
     '''función para predecir la categoria de la pregunta usando AA'''
+    
     # Predigo
     new_X = vectorizador.transform([respuesta_usuario])   #respuesta del usuario debe ser por ej: ['hola']
     prediccion = clasificador.predict(new_X)
@@ -63,56 +65,53 @@ respuesta=''
 contador = 0
 async def respuesta(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
-        import random
-        print(f'Valen: {update.message.text.lower()}')
-        clasificacion=clasification(update.message.text.lower())
-        global contador
 
-        if clasificacion == etiqueta_1:
-            user = update.effective_user
-            # {user.mention_html()}!'
-            resp = [respuestas_etiqueta_1]
-            respuesta = random.choice(resp)
-        elif clasificacion == etiqueta_2:
-            resp = [respuestas_etiqueta_2]
-            respuesta = random.choice(resp)
-        elif clasificacion == etiqueta_3:
-            resp = [respuestas_etiqueta_3]
-            respuesta = random.choice(resp)
-        elif clasificacion == etiqueta_4:
-            resp = [respuestas_etiqueta_4]
-            respuesta = random.choice(resp)
-        elif clasificacion == etiqueta_5:
-            resp = [respuestas_etiqueta_5]
-            respuesta = random.choice(resp)
-        elif clasificacion == etiqueta_6:
-            resp = [respuestas_etiqueta_6]
-            respuesta = random.choice(resp)
-        elif clasificacion == etiqueta_7:
-            resp = [respuestas_etiqueta_7]
-            respuesta = random.choice(resp)
-        else:
-             contador += 1
-             if contador == 5:
-                contador=0
-                respuesta='respuesta extra'
-             else:
-                 resp = ['respuestas extras']
-                 respuesta = random.choice(resp)
+print(f'usuario: {update.message.text.lower()}')
+clasificacion=clasification(update.message.text.lower())
+global contador
 
-        await update.message.reply_text(respuesta)
-        print(f'Bot: {respuesta}')
+if clasificacion == etiqueta_1:
+    user = update.effective_user
+    # {user.mention_html()}!'
+    resp = [respuestas_etiqueta_1]
+    respuesta = random.choice(resp)
+elif clasificacion == etiqueta_2:
+    resp = [respuestas_etiqueta_2]
+    respuesta = random.choice(resp)
+elif clasificacion == etiqueta_3:
+    resp = [respuestas_etiqueta_3]
+    respuesta = random.choice(resp)
+elif clasificacion == etiqueta_4:
+    resp = [respuestas_etiqueta_4]
+    respuesta = random.choice(resp)
+elif clasificacion == etiqueta_5:
+    resp = [respuestas_etiqueta_5]
+    respuesta = random.choice(resp)
+elif clasificacion == etiqueta_6:
+    resp = [respuestas_etiqueta_6]
+    respuesta = random.choice(resp)
+else:
+     contador += 1
+     if contador == 5:
+        contador=0
+        respuesta='respuesta extra'
+     else:
+         resp = ['respuestas extras']
+         respuesta = random.choice(resp)
 
-       
-    # Create the Application and pass it your bot's token.
-    application = Application.builder().token("TOKEN").build()
+await update.message.reply_text(respuesta)
+print(f'Bot: {respuesta}')
 
 
-    # on non command i.e message - respuesta the message on Telegram
-    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, respuesta_usuario))
+# Create the Application and pass it your bot's token.
+application = Application.builder().token("TOKEN").build()
 
-    # Run the bot until the user presses Ctrl-C
-    application.run_polling(allowed_updates=Update.ALL_TYPES)
+
+# on non command i.e message - respuesta the message on Telegram
+application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, respuesta_usuario))
+
+# Run the bot until the user presses Ctrl-C
+application.run_polling(allowed_updates=Update.ALL_TYPES)
 
 
 if __name__ == "__main__":
