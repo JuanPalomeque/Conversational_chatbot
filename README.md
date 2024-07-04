@@ -42,7 +42,7 @@ label_encoder = LabelEncoder()  # Transforma el texto en variables categóricas
 y = df['etiqueta']
 y = label_encoder.fit_transform(y)
 
-# Inicializo y entreno el clasificador
+## Inicializo y entreno el clasificador
 clasificador = MultinomialNB()
 clasificador.fit(X, y)
 
