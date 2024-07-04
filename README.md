@@ -25,7 +25,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.preprocessing import LabelEncoder
 from sklearn.naive_bayes import MultinomialNB
 
-# ----------------------preparing------------------------------------
+##----------------------preparing------------------------------------
 import pandas as pd
 
 df=pd.read_csv(r"D:\Users\User\PycharmProjects\Hola_Mundo\boot python\Base_bot.csv",sep=';')
@@ -47,7 +47,7 @@ y = label_encoder.fit_transform(y)
 clasificador = MultinomialNB()
 clasificador.fit(X, y)
 
-#----------------------------------Beggining of the program---------------------
+##---------------------------------Beggining of the program---------------------
 
 
 def clasification(respuesta_usuario):
@@ -103,14 +103,14 @@ await update.message.reply_text(respuesta)
 print(f'Bot: {respuesta}')
 
 
-# Create the Application and pass it your bot's token.
+## Create the Application and pass it your bot's token.
 application = Application.builder().token("TOKEN").build()
 
 
-# on non command i.e message - respuesta the message on Telegram
+## on non command i.e message - respuesta the message on Telegram
 application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, respuesta_usuario))
 
-# Run the bot until the user presses Ctrl-C
+## Run the bot until the user presses Ctrl-C
 application.run_polling(allowed_updates=Update.ALL_TYPES)
 
 
