@@ -1,5 +1,6 @@
 # Conversational_chatbot
-#Introduction to chatbot programming and machine learning technines 
+## Introduction to chatbot programming and machine learning technines 
+
 
 
 
@@ -11,7 +12,7 @@ from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandl
 from telegram import Bot
 import asyncio
 
-# Enable logging
+## Enable logging
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
 )
