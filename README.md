@@ -1,7 +1,6 @@
 # Conversational_chatbot using Telegram bot
 ## Introduction to chatbot programming and machine learning technines 
 
-
 import logging
 
 from telegram import ForceReply, Update
